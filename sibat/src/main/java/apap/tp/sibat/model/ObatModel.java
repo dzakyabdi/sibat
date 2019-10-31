@@ -69,6 +69,22 @@ public class ObatModel implements Serializable{
         return gudangObatList;
     }
 
+    public String getSemuaGudang() {
+        String output = "";
+        for(GudangObatModel gudang : getGudangObatList()) {
+            output += gudang.getGudang().getNama() + ",\n";
+        }
+        return output;
+    }
+
+    public String getSemuaSupplier() {
+        String output = "";
+        for(ObatSupplierModel supplier : getObatSupplierList()) {
+            output += supplier.getSupplier().getNama() + ",\n";
+        }
+        return output;
+    }
+
     public void setGudangObatList(List<GudangObatModel> gudangObatList) {
         this.gudangObatList = gudangObatList;
     }

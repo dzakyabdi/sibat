@@ -155,7 +155,16 @@ public class ObatController {
         List<GudangModel> listGudang = gudangService.getListGudang();
         List<SupplierModel> listSupplier = supplierService.getSupplierList();
         List<JenisModel> listJenis = jenisDb.findAll();
+
         List<ObatModel> listObat = new ArrayList<>();
+        List<GudangObatModel> listGudangObat = new ArrayList<>();
+        List<ObatSupplierModel> listObatSupplier = new ArrayList<>();
+
+//        List<String> daftarGudang = new ArrayList<>();
+//        List<String> daftarSupplier = new ArrayList<>();
+//
+//        String gudangString = "";
+//        String supplierString = "";
 
         if (idGudang == null && idSupplier == null && idJenis == null) {
             model.addAttribute("listGudang", listGudang);
@@ -167,6 +176,18 @@ public class ObatController {
             for(GudangObatModel obj : gudangService.getGudangById(idGudang).getGudangObatList()) {
                 listObat.add(obj.getObat());
             }
+
+//            for(ObatModel obj : listObat) {
+//                for(GudangObatModel gudang : obj.getGudangObatList()) {
+//                    gudangString += gudang.getGudang().getNama() + "\n";
+//                }
+//                daftarGudang.add(gudangString);
+//
+//                for(ObatSupplierModel supplier : obj.getObatSupplierList()) {
+//                    supplierString += supplier.getSupplier().getNama() + "\n";
+//                }
+//                daftarSupplier.add(supplierString);
+//            }
         } else if(idGudang == null && idSupplier != null && idJenis == null) {
             for(ObatSupplierModel obj : supplierService.getSupplierByIdSupplier(idSupplier).getObatSupplierList()) {
                 listObat.add(obj.getObat());
@@ -207,6 +228,8 @@ public class ObatController {
             }
         }
 
+//        model.addAttribute("daftarGudang", daftarGudang);
+//        model.addAttribute("daftarSupplier", daftarSupplier);
         model.addAttribute("listGudang", listGudang);
         model.addAttribute("listSupplier", listSupplier);
         model.addAttribute("listJenis", listJenis);

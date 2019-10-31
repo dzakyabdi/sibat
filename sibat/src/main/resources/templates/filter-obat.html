@@ -88,9 +88,9 @@
                 <td th:text="${obat.kode}"></td>
                 <td th:text="${obat.nama}"></td>
                 <td th:text="${obat.harga}"></td>
-                <td>gudang</td>
+                <td th:text="${obat.getSemuaGudang()}"></td>
                 <td th:text="${obat.jenis.nama}"></td>
-                <td>supplier</td>
+                <td th:text="${obat.getSemuaSupplier()}"></td>
             </tr>
             </tbody>
         </table>

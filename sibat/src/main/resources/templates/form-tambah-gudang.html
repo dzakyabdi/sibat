@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Tambah Gudang</title>
+    <style>
+        .card {
+            margin: 0 auto;
+            float: none;
+            margin-bottom: 10px;
+        }
+    </style>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="card" style="width: 18rem;margin-top:30px">
+    <div class="card-body">
+        <h2 class="card-title" style="text-align:center;">Tambah Gudang</h2>
+        <form th:action="@{/gudang/tambah}" th:object="${gudang}" method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1" style="text-align:center;">Nama:</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" th:value="${gudang.nama}" name="nama">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" style="text-align:center;">Alamat:</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" th:value="${gudang.alamat}" name="alamat">
+            </div>
+            <button type="submit" class="btn btn-primary">Tambah</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

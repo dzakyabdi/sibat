@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Daftar Gudang</title>
+    <style>
+			td, th {
+				padding: 10px;
+			}
+			h1 {
+			    text-align:center;
+			}
+	</style>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<h1>Sistem Informasi Inventory Obat</h1>
+
+<div class="container" style="margin-top:30px">
+    <h2>Daftar Gudang</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="gudang, iterationStatus : *{listGudang}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${gudang.nama}"></td>
+                <td th:text="${gudang.alamat}"></td>
+                <td>
+                    <a type="submit" class="btn btn-primary" th:href="@{/gudang/view?idGudang={idGudang}(idGudang=${gudang.id})}">Lihat</a>
+                    <a type="submit" class="btn btn-dark" >Ubah</a>
+                    <a type="submit" class="btn btn-danger" th:href="@{/gudang/hapus/{idGudang}(idGudang=${gudang.id})}">Hapus</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a type="submit" class="btn btn-dark" th:href="@{/gudang/tambah}" style="text-align:right">Tambah Gudang</a>
+</div>
+
+</body>
+</html>

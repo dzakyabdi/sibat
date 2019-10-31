@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Filter Gudang</title>
+    <style>
+        .card {
+            margin: 0 auto;
+            float: none;
+            margin-bottom: 25px;
+            margin-top:30px
+        }
+    </style>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h2 class="card-title" style="text-align:center;">Cari Obat</h2>
+        <div class="table-responsive">
+            <form th:action="@{/obat/filter}">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td style="text-align:center">Gudang:</td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-control" name="idGudang">
+                            <option th:value="null" style="text-align:center" selected>-- Pilih Gudang --</option>
+                            <option
+                                    th:each="gudang: ${listGudang}" th:value="${gudang.getId()}" th:text="${gudang.getNama()}">
+                            </option>
+                        </select>
+                    </td>
+                <tr>
+                    <td style="text-align:center">Jenis:</td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-control" name="idJenis">
+                            <option th:value="null" style="text-align:center" selected>-- Pilih Jenis --</option>
+                            <option
+                                    th:each="jenis: ${listJenis}" th:value="${jenis.getId()}" th:text="${jenis.getNama()}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">Supplier:</td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-control" name="idSupplier">
+                            <option th:value="null" style="text-align:center" selected>-- Pilih Supplier --</option>
+                            <option
+                                    th:each="supplier: ${listSupplier}" th:value="${supplier.getId()}" th:text="${supplier.getNama()}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                    <td style="text-align:center"><button type="submit" class="btn btn-dark">Cari</button></td>
+                </tbody>
+            </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Harga</th>
+                <th>Gudang</th>
+                <th>Jenis</th>
+                <th>Supplier</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="obat, iterationStatus : *{listObat}">
+                <td th:text="${obat.kode}"></td>
+                <td th:text="${obat.nama}"></td>
+                <td th:text="${obat.harga}"></td>
+                <td>gudang</td>
+                <td th:text="${obat.jenis.nama}"></td>
+                <td>supplier</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+
+</html>

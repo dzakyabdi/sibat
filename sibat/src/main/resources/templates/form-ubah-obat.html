@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Tambah Obat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+    <h2>Tambah Obat</h2>
+    <form class="form-horizontal" th:action="@{/obat/ubah}" th:object="${obat}" method="post">
+        <div class="form-group">
+            <label class="control-label col-sm-2">Nama</label>
+            <div class="col-sm-10">
+                <input type="text" th:placeholder="${obat.nama}" th:value="${obat.nama}" class="form-control" name="nama">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Nomor Registrasi</label>
+            <div class="col-sm-10">
+                <input type="text" th:placeholder="${obat.nomorRegistrasi}" th:value="${obat.nomorRegistrasi}" class="form-control" name="nomorRegistrasi">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Tanggal Terbit</label>
+            <div class="col-sm-10">
+                <input type="date" th:placeholder="${obat.tanggalTerbit}" th:value="${obat.tanggalTerbit}" class="form-control" name="tanggalTerbit">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Harga</label>
+            <div class="col-sm-10">
+                <input type="text" th:placeholder="${obat.harga}" th:value="${obat.harga}" class="form-control"name="harga">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Bentuk</label>
+            <select class="form-control" id="sel1" name="bentuk" th:placeholder="${obat.bentuk}" th:value="${obat.bentuk}">
+                <option th:value="null">-- Pilih Bentuk --</option>
+                <option th:value="Cairan">Cairan</option>
+                <option th:value="Kapsul">Kapsul</option>
+                <option th:value="Tablet">Tablet</option>
+            </select>
+        </div>
+        <div class="form-group" th:each="jenis:listJenis">
+            <label class="control-label col-sm-2">Jenis</label>
+            <select class="form-control" id="sel1" name="jenis" th:placeholder="${obat.jenis}" th:value="${obat.jenis}">
+                <option th:value="null">-- Pilih Jenis --</option>
+                <option th:each="jenis : ${listJenis}" th:value="${jenis.id}" th:text="${jenis.nama}">Generik</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Supplier</label>
+            <div th:field="*{obatSupplierList}" th:each="supplierNya, iterationStatus : *{obatSupplierList}">
+                <input type="hidden" th:field="${obat.id}">
+                <select class="form-control" id="sel1" th:field="*{obatSupplierList[__${iterationStatus.index}__].supplier}">
+                    <option th:value="null">-- Pilih Supplier --</option>
+                    <option
+                            th:each="supplier : ${listSupplier}" th:value="${supplier.id}" th:text="${supplier.nama}">
+                    </option>
+                </select>
+            </div>
+            <button name="tambah" type="submit">Tambah Supplier</button>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" name="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Cari Obat</title>
+    <style>
+        .card {
+            margin: 0 auto;
+            float: none;
+            margin-bottom: 10px;
+        }
+    </style>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<h1 style="margin-top:30px: text-align: center">Lihat Daftar Obat yang sudah expired di Suatu Gudang</h1>
+
+<div class="card" style="width: 18rem; margin-top:30px; text-align: center">
+    <form th:action="@{/gudang/expired-obat}">
+        <div class="card-body">
+            <h5 class="card-title">Pilih Gudang</h5>
+            <select class="form-control" name="idGudang">
+                <option th:value="null" style="text-align:center" selected>-- Pilih Gudang --</option>
+                <option
+                        th:each="gudang: ${listGudang}" th:value="${gudang.getId()}" th:text="${gudang.getNama()}">
+                </option>
+            </select>
+            <button type="submit" class="btn btn-primary" style="margin-top:20px">Lihat</button>
+        </div>
+    </form>
+</div>
+
+<div class="container" style="margin-top:30px; margin-bottom:20px">
+    <h5>Daftar Obat Expired</h5>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Nomor Registrasi</th>
+                <th>Tanggal Terbit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="obat, iterationStatus : *{listObat}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${obat.kode}"></td>
+                <td th:text="${obat.nama}"></td>
+                <td th:text="${obat.nomorRegistrasi}"></td>
+                <td th:text="${obat.tanggalTerbit}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

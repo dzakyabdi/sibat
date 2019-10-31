@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Daftar Gudang</title>
+    <style>
+        .card {
+            margin: 0 auto;
+            float: none;
+            margin-bottom: 10px;
+        }
+    </style>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+<div class="card" style="width: 18rem;margin-top:30px">
+    <div class="card-body">
+        <h2 class="card-title" style="text-align:center;">Detail Gudang</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td>Nama:</td>
+                    <td th:text="${gudang.nama}"></td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td th:text="${gudang.alamat}"></td>
+                </tr>
+                    <td>Jumlah Obat</td>
+                    <td th:text="${jumlah}"></td>
+                </tr>
+                <tr>
+                    <form th:action="@{/gudang/tambah-obat}" th:object="${dummy}" method="POST">
+                        <input type="hidden" th:name="id" th:value="${gudang}" th:field="*{gudang}">
+                        <td>
+                            <select class="form-control" id="sel1" name="obat" th:field="*{obat}">
+                                <option th:value="null" selected>Pilih</option>
+                                <option
+                                        th:each="obat: ${listObatNoExist}" th:value="${obat.getId()}" th:text="${obat.getNama()}">
+                                </option>
+                            </select>
+                        </td>
+                        <td><button type="submit" class="btn btn-primary">Submit</button></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Daftar Obat</h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Harga</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="obat, iterationStatus : *{listObatExist}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${obat.kode}"></td>
+                <td th:text="${obat.nama}"></td>
+                <td th:text="${obat.harga}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
